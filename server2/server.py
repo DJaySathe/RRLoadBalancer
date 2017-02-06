@@ -18,14 +18,14 @@ s.listen(5)                     # Now wait for client connection.
 
 
 
-print 'Server 1 listening....'
+print 'Server 2 listening....'
 
 
 
 while True:
     conn, addr = s.accept()     # Establish connection with client.
     print 'Got connection from', addr
-    conn.send("Connected to Server 1")
+    conn.send("Connected to Server 2")
     data = conn.recv(1024)
     print('Server received', repr(data))
     

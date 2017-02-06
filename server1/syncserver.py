@@ -1,11 +1,13 @@
+#!/usr/bin/python
 import socket,sys,os                   # Import socket module
 
 port = 60040                   # Reserve a port for your service.
 s = socket.socket()             # Create a socket object
-host = "10.0.0.2"    # Get local machine name
-print host
-s.bind((host, port))            # Bind to the port
+#host = "10.0.0.2"    # Get local machine name
+#print host
+s.bind(('', port))            # Bind to the port
 s.listen(5)                     # Now wait for client connection.
+print ("Sync Server Connected")
 
 while True:
     conn, addr = s.accept()     # Establish connection with client.
@@ -18,8 +20,9 @@ while True:
     print option
 
     if option=="1":
-   	    print("Inside Servers put")
+   	    print("Inside Servers Syncserver 1 put")
 	    filename = conn.recv(1024)
+	    conn.send("OK")
 	    with open(filename, 'wb') as f:
 		    print 'file opened'
 		    while True:
@@ -41,5 +44,13 @@ while True:
 	    print "New"+new_filename
 	    os.rename(original_filename,new_filename)
 	    conn.close()
- 		
+
+    if option=="3":
+	    full_filename=conn.recv(1024)
+	    os.remove(full_filename)
+	    conn.close()
+
+    		
+
+
 
